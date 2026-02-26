@@ -16,38 +16,12 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     });
 
     it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
-
-        //Primeiro produto
-        cy.get('.product-block').first().click()
-        cy.get('.button-variable-item-L').click()
-        cy.get('.button-variable-item-White').click()
-        cy.get('.single_add_to_cart_button').click()
-        cy.visit('/')
-
-        // Segundo produto
-        cy.get('.product-block').eq(1).click()
-        cy.get('.button-variable-item-S').click()
-        cy.get('.button-variable-item-Blue').click()
-        cy.get('.single_add_to_cart_button').click()
-        cy.visit('/')
-
-        // Terceiro produto
-        cy.get('.product-block').eq(4).click()
-        cy.get('.button-variable-item-M').click()
-        cy.get('.button-variable-item-Gray').click()
-        cy.get('.single_add_to_cart_button').click()
-        cy.visit('/')
-
-        // Quarto produto
-        cy.get('.product-block').eq(7).click()
-        cy.get('.button-variable-item-XS').click()
-        cy.get('.button-variable-item-Red').click()
-        cy.get('.single_add_to_cart_button').click()
-
+        cy.adicionarProdutoAoCarrinho(0, 'L', 'White')
+        cy.adicionarProdutoAoCarrinho(1, 'S', 'Blue')
+        cy.adicionarProdutoAoCarrinho(4, 'M', 'Gray')
+        cy.adicionarProdutoAoCarrinho(7, 'XS', 'Red')
         cy.get('.dropdown-toggle > .text-skin > .icon-basket').click()
         cy.get('#cart .checkout').click()
-
-
 
         // Gerando dados
         let nome = faker.person.firstName();
@@ -62,7 +36,6 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         // Preenchendo formulário
         cy.get('#billing_first_name').type(nome);
         cy.get('#billing_last_name').type(sobrenome);
-
 
         cy.get('#billing_country_field .select2-selection__arrow').click();
         cy.get('.select2-search__field').type('Brasil{enter}');
@@ -79,7 +52,6 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         cy.get('#createaccount').click()
         cy.get('#account_password').type(senha)
 
-
         cy.get('#payment_method_cod').click()
         cy.get('#terms').check()
         cy.get('#place_order').click()
@@ -87,4 +59,4 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
 
     });
 
-}); 
+})
